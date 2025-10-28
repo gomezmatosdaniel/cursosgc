@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block title %}Tests disponibles · CursosGC{% endblock %}
+{% block content %}
+<section class="tests">
+  <header class="section-header">
+    <h1>Tests disponibles</h1>
+    <p>Selecciona un test para empezar y comprueba tus conocimientos.</p>
+  </header>
+
+  <div class="card-grid">
+    {% for test in tests %}
+    <article class="card">
+      <h2>{{ test.title }}</h2>
+      <p>{{ test.description }}</p>
+      <a class="btn" href="{{ url_for('take_test', test_id=test.id) }}">Comenzar test</a>
+    </article>
+    {% else %}
+    <p>Estamos preparando nuevos contenidos. ¡Vuelve pronto!</p>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

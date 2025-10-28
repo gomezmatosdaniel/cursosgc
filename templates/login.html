@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block title %}Iniciar sesión · CursosGC{% endblock %}
+{% block content %}
+<section class="auth">
+  <h1>Bienvenido de nuevo</h1>
+  <p class="auth-subtitle">Accede a tu panel y continúa con tus evaluaciones.</p>
+  <form method="post" class="form-card">
+    <label for="email">Correo electrónico</label>
+    <input type="email" id="email" name="email" required />
+
+    <label for="password">Contraseña</label>
+    <input type="password" id="password" name="password" required />
+
+    <button class="btn" type="submit">Iniciar sesión</button>
+  </form>
+  <p class="auth-switch">
+    ¿Aún no tienes cuenta? <a href="{{ url_for('register') }}">Crea una gratis</a>.
+  </p>
+</section>
+{% endblock %}

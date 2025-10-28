@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block title %}Panel · CursosGC{% endblock %}
+{% block content %}
+<section class="dashboard">
+  <h1>Hola, {{ user.full_name }}</h1>
+  <p class="lead">
+    {% if user.is_subscribed %}
+    {% set end_date = user.subscription_end.strftime('%d/%m/%Y') if user.subscription_end else 'sin fecha' %}
+    Tu plan <strong>{{ user.subscription_plan|title }}</strong> está activo hasta
+    {{ end_date }}.
+    {% else %}
+    Aún no tienes una suscripción activa. <a href="{{ url_for('subscribe') }}">Suscríbete ahora</a>
+    para desbloquear todo el contenido.
+    {% endif %}
+  </p>
+
+  <div class="card-grid">
+    <article class="card">
+      <h2>Acceso a tests</h2>
+      <p>Explora el catálogo disponible y practica con evaluaciones tipo test.</p>
+      <a class="btn" href="{{ url_for('tests') }}">Ver tests</a>
+    </article>
+
+    <article class="card">
+      <h2>Resultados recientes</h2>
+      {% if recent_results %}
+      <ul class="result-list">
+        {% for result in recent_results %}
+        <li>
+          <strong>{{ result.title }}</strong>
+          <span>{{ result.score }}/{{ result.total_questions }}</span>
+          <small>{{ result.formatted_date }}</small>
+        </li>
+        {% endfor %}
+      </ul>
+      {% else %}
+      <p>Todavía no has completado ningún test. ¡Empieza hoy mismo!</p>
+      {% endif %}
+    </article>
+  </div>
+</section>
+{% endblock %}
