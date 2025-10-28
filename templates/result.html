@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block title %}Resultado · {{ result.title }} · CursosGC{% endblock %}
+{% block content %}
+<section class="result">
+  <header class="section-header">
+    <h1>Resultado: {{ result.title }}</h1>
+    <p>Completado el {{ result.taken_at }}.</p>
+  </header>
+
+  <div class="score-card">
+    <p class="score">{{ result.score }}/{{ result.total_questions }}</p>
+    {% set percentage = (result.score / result.total_questions * 100) if result.total_questions else 0 %}
+    <p>Has respondido correctamente el {{ percentage | round(0) }}%.</p>
+    <a class="btn" href="{{ url_for('tests') }}">Volver a los tests</a>
+  </div>
+
+  <section class="answers">
+    <h2>Revisión de respuestas</h2>
+    <ol>
+      {% for question in questions %}
+      {% set answer = answers.get(question.id) %}
+      <li>
+        <h3>{{ question.prompt }}</h3>
+        <p>
+          <strong>Tu respuesta:</strong>
+          {% if answer and answer.selected_label %}
+          {{ answer.selected_label }}
+          {% else %}
+          Sin responder
+          {% endif %}
+        </p>
+        <p>
+          <strong>Respuesta correcta:</strong>
+          {{ ', '.join(correct_answers.get(question.id, [])) }}
+        </p>
+        {% if answer and answer.selected_is_correct %}
+        <span class="tag success">Correcta</span>
+        {% else %}
+        <span class="tag error">Incorrecta</span>
+        {% endif %}
+      </li>
+      {% endfor %}
+    </ol>
+  </section>
+</section>
+{% endblock %}

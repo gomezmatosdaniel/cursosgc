@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block title %}Inicio · CursosGC{% endblock %}
+{% block content %}
+<section class="hero">
+  <div class="hero-text">
+    <h1>Plataforma de tests para profesionales</h1>
+    <p>
+      Practica con evaluaciones tipo test diseñadas para reforzar tus conocimientos
+      y mantenerte actualizado en metodologías ágiles, habilidades profesionales y más.
+    </p>
+    {% if not user %}
+    <div class="cta-group">
+      <a class="btn" href="{{ url_for('register') }}">Comienza tu prueba</a>
+      <a class="btn-outline" href="{{ url_for('login') }}">Ya tengo una cuenta</a>
+    </div>
+    {% else %}
+    <a class="btn" href="{{ url_for('tests') }}">Ir a mis tests</a>
+    {% endif %}
+  </div>
+  <div class="hero-card">
+    <h2>¿Cómo funciona?</h2>
+    <ol>
+      <li>Crea tu cuenta y elige el plan que mejor se adapte a ti.</li>
+      <li>Accede a tu panel de control y revisa tu progreso.</li>
+      <li>Responde tests interactivos y obtén retroalimentación inmediata.</li>
+    </ol>
+  </div>
+</section>
+
+<section class="features">
+  <article>
+    <h3>Catálogo en expansión</h3>
+    <p>Recibe nuevos tests cada mes para seguir aprendiendo.</p>
+  </article>
+  <article>
+    <h3>Resultados detallados</h3>
+    <p>Consulta tus respuestas, identifica áreas de mejora y comparte tus logros.</p>
+  </article>
+  <article>
+    <h3>Suscripción flexible</h3>
+    <p>Planes mensual y anual para adaptarse a tu ritmo de estudio.</p>
+  </article>
+</section>
+{% endblock %}

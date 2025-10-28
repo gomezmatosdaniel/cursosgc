@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block title %}{{ test.title }} · CursosGC{% endblock %}
+{% block content %}
+<section class="take-test">
+  <header class="section-header">
+    <h1>{{ test.title }}</h1>
+    <p>{{ test.description }}</p>
+  </header>
+
+  <form method="post" class="form-card">
+    {% for question in questions %}
+    <fieldset class="question">
+      <legend>{{ loop.index }}. {{ question.prompt }}</legend>
+      {% for choice in choices[question.id] %}
+      <label class="option">
+        <input
+          type="radio"
+          name="question-{{ question.id }}"
+          value="{{ choice.id }}"
+          required
+        />
+        <span>{{ choice.label }}</span>
+      </label>
+      {% endfor %}
+    </fieldset>
+    {% endfor %}
+
+    <button class="btn" type="submit">Enviar respuestas</button>
+  </form>
+</section>
+{% endblock %}
